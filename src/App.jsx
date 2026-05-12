@@ -8,13 +8,45 @@ import Projects from "./components/Projects.jsx";
 import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
 
+const THEME_STORAGE_KEY = "portfolio-theme";
+
+const getInitialTheme = () => {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+
+  if (savedTheme === "dark") {
+    return true;
+  }
+
+  if (savedTheme === "light") {
+    return false;
+  }
+
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+};
+
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(getInitialTheme);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
   }, [isDarkMode]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleSystemThemeChange = (event) => {
+      if (!window.localStorage.getItem(THEME_STORAGE_KEY)) {
+        setIsDarkMode(event.matches);
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleSystemThemeChange);
+    return () => mediaQuery.removeEventListener("change", handleSystemThemeChange);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setShowScrollTop(window.scrollY > 520);
@@ -28,9 +60,17 @@ function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const toggleDarkMode = () => {
+    setIsDarkMode((currentTheme) => {
+      const nextTheme = !currentTheme;
+      window.localStorage.setItem(THEME_STORAGE_KEY, nextTheme ? "dark" : "light");
+      return nextTheme;
+    });
+  };
+
   return (
     <div className="min-h-screen bg-white text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-white">
-      <Navbar isDarkMode={isDarkMode} onToggleDarkMode={() => setIsDarkMode((value) => !value)} />
+      <Navbar isDarkMode={isDarkMode} onToggleDarkMode={toggleDarkMode} />
       <main>
         <Hero />
         <Skills />

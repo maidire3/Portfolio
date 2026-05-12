@@ -29,7 +29,7 @@ npm run dev
 - Sezione competenze organizzata per categorie
 - Card progetti generate dinamicamente da un file dati
 - Sezione contatti con CTA professionale
-- Dark mode toggle
+- Dark mode toggle con preferenza di sistema e salvataggio in localStorage
 - Pulsante scroll-to-top
 - Animazioni leggere con Framer Motion
 - Meta tag SEO e Open Graph
