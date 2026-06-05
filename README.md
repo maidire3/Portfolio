@@ -4,6 +4,7 @@ Portfolio personale di **Davide Cavallaro**, Junior Full Stack Developer.
 
 Il sito presenta profilo, competenze tecniche, progetti GitHub e contatti professionali in una landing page moderna, responsive e accessibile.
 
+Portfolio visualizzabile su Vercel al sito: [https://portfolio-davide-cavallaro.vercel.app/](https://portfolio-davide-cavallaro.vercel.app/)
 ## Demo
 
 Il progetto puo essere avviato localmente con Vite:
