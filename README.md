@@ -116,4 +116,4 @@ Junior Full Stack Developer
 
 ## License
 
-Questo progetto e pensato come portfolio personale.
+Questo progetto è pensato come portfolio personale.
